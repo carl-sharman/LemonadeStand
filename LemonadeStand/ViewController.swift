@@ -35,7 +35,7 @@ class ViewController: UIViewController {
     var purchasedIceCubes: Int = 0
     var mixedLemons: Int = 0
     var mixedIceCubes: Int = 0
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -50,55 +50,71 @@ class ViewController: UIViewController {
     }
 
     @IBAction func purchaseLemonsTouch(sender: UIButton) {
-        if (self.inventory.lemons > 1) {
+        if self.inventory.purchaseLemon() {
             self.purchasedLemons++
-            self.inventory.lemons--
             self.purchasedLemonsLabel.text = "\(self.purchasedLemons)"
+            self.displayInventory()
         }
     }
 
     @IBAction func purchaseIceCubes(sender: UIButton) {
-        if (self.inventory.iceCubes > 1) {
+        if self.inventory.purchaseIceCube() {
             self.purchasedIceCubes++
-            self.inventory.iceCubes--
             self.purchasedIceCubesLabel.text = "\(self.purchasedIceCubes)"
+            self.displayInventory()
         }
     }
     
     @IBAction func sellLemonsTouch(sender: UIButton) {
-        if (self.purchasedLemons > 0) {
+        if self.purchasedLemons > 0 && self.inventory.sellLemon() {
             self.purchasedLemons--
-            self.inventory.lemons++
             self.purchasedLemonsLabel.text = "\(self.purchasedLemons)"
+            self.displayInventory()
         }
     }
     
     @IBAction func sellIceCubesTouch(sender: UIButton) {
-        if (self.purchasedIceCubes > 0) {
+        if self.purchasedIceCubes > 0 && self.inventory.sellIceCube() {
             self.purchasedIceCubes--
-            self.inventory.iceCubes++
             self.purchasedIceCubesLabel.text = "\(self.purchasedIceCubes)"
+            self.displayInventory()
         }
     }
     
     @IBAction func addMixedLemonsTouch(sender: UIButton) {
-        self.mixedLemons++
-        self.mixedLemonsLabel.text = "\(self.mixedLemons)"
+        if self.inventory.lemons > 0 {
+            self.mixedLemons++
+            self.inventory.lemons--
+            self.mixedLemonsLabel.text = "\(self.mixedLemons)"
+            self.displayInventory()
+        }
     }
     
     @IBAction func addMixedIceCubesTouch(sender: UIButton) {
-        self.mixedIceCubes++
-        self.mixedIceCubesLabel.text = "\(self.mixedIceCubes)"
+        if self.inventory.iceCubes > 0 {
+            self.mixedIceCubes++
+            self.inventory.iceCubes--
+            self.mixedIceCubesLabel.text = "\(self.mixedIceCubes)"
+            self.displayInventory()
+        }
     }
     
     @IBAction func removeMixedLemonsTouch(sender: UIButton) {
-        self.mixedLemons--
-        self.mixedLemonsLabel.text = "\(self.mixedLemons)"
+        if self.mixedLemons > 0 {
+            self.inventory.lemons++
+            self.mixedLemons--
+            self.mixedLemonsLabel.text = "\(self.mixedLemons)"
+            self.displayInventory()
+        }
     }
     
     @IBAction func removeMixedIceCubesTouch(sender: UIButton) {
-        self.mixedIceCubes--
-        self.mixedIceCubesLabel.text = "\(self.mixedIceCubes)"
+        if self.mixedIceCubes > 0 {
+            self.inventory.iceCubes++
+            self.mixedIceCubes--
+            self.mixedIceCubesLabel.text = "\(self.mixedIceCubes)"
+            self.displayInventory()
+        }
     }
     
     @IBAction func startDayTouch(sender: UIButton) {
