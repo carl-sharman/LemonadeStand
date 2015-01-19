@@ -118,6 +118,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startDayTouch(sender: UIButton) {
+        
     }
     
     func displayInventory() {
